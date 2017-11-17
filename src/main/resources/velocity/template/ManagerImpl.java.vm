@@ -1,0 +1,92 @@
+package ${package}.modules.${module}.manager.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import com.demo.common.entity.Page;
+import com.demo.common.entity.Query;
+import ${package}.modules.${module}.dao.${className}Mapper;
+import ${package}.modules.${module}.entity.${className}Entity;
+import ${package}.modules.${module}.manager.${className}Manager;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @url ${url}
+ * @date ${datetime}
+ */
+@Component("${objName}Manager")
+public class ${className}ManagerImpl implements ${className}Manager {
+
+	@Autowired
+	private ${className}Mapper ${objName}Mapper;
+
+
+    @Override
+    public int add(${className}Entity ${objName}) {
+        return ${objName}Mapper.insertSelective(${objName});
+    }
+
+    @Override
+    public int removeLogicalById(${pkType} id) {
+        throw new RuntimeException("逻辑删除需要根据业务自行处理");
+    }
+
+    @Override
+    public int removeLogicalById(List<${pkType}> ids) {
+        throw new RuntimeException("逻辑删除需要根据业务自行处理");
+    }
+
+    @Override
+    public int removePhysicalById(${pkType} id) {
+        return ${objName}Mapper.deleteById(id);
+    }
+
+    @Override
+    public int removePhysicalById(List<${pkType}> ids) {
+        return ${objName}Mapper.deleteByIds(ids);
+    }
+
+    @Override
+    public int removeAll() {
+        return ${objName}Mapper.deleteAll();
+    }
+
+    @Override
+    public int update(${className}Entity ${objName}) {
+        return ${objName}Mapper.updateByIdSelective(${objName});
+    }
+
+    @Override
+    public ${className}Entity getById(${pkType} id) {
+        return ${objName}Mapper.selectOneById(id);
+    }
+
+    @Override
+    public ${className}Entity getByObject(${className}Entity ${objName}) {
+        return ${objName}Mapper.selectOneByObject(${objName});
+    }
+
+    @Override
+    public List<${className}Entity> list(${className}Entity ${objName}, Page<${className}Entity> page) {
+        return ${objName}Mapper.selectByObject(${objName},page);
+    }
+
+    @Override
+    public List<${className}Entity> list(${className}Entity ${objName}) {
+        return ${objName}Mapper.selectByObject(${objName},null);
+    }
+
+    @Override
+    public List<${className}Entity> listAll() {
+        return ${objName}Mapper.selectAll();
+    }
+
+    @Override
+    public List<${className}Entity> list${className}(Page<${className}Entity> page, Query search) {
+        return ${objName}Mapper.listForPage(page, search);
+    }
+}

@@ -1,0 +1,54 @@
+package ${package}.modules.${module}.dao;
+
+import com.demo.common.entity.Page;
+
+import ${package}.modules.${module}.entity.${className}Entity;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import com.demo.common.entity.Page;
+import com.demo.common.entity.Query;
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @url ${url}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${className}Mapper {
+    int insert(${className}Entity record);
+
+    int insertSelective(${className}Entity record);
+
+    int insertInBatch(List<${className}Entity> records);
+
+    int deleteById(${pkType} id);
+
+    int deleteByObject(${className}Entity record);
+
+    int deleteByIds(List<${pkType}> ids);
+
+    int deleteAll();
+
+    int updateById(${className}Entity record);
+
+    int updateByIdSelective(${className}Entity record);
+
+    ${className}Entity selectOneById(${pkType} id);
+
+    ${className}Entity selectOneByObject(${className}Entity record);
+
+    List<${className}Entity> selectByObject(@Param("entity") ${className}Entity record, Page page);
+
+    List<${className}Entity> selectAll();
+
+    List<${className}Entity> listForPage(Page<${className}Entity> page, Query query);
+
+    long count(${className}Entity record);
+
+    long countAll();
+	
+}

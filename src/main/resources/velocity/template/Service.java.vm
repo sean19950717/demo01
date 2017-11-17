@@ -1,0 +1,37 @@
+package ${package}.modules.${module}.service;
+
+import java.util.List;
+import java.util.Map;
+import com.demo.common.entity.Page;
+import com.demo.common.entity.Query;
+import ${package}.modules.${module}.entity.${className}Entity;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @url ${url}
+ * @date ${datetime}
+ */
+public interface ${className}Service {
+
+    int add(${className}Entity ${objName});
+
+    int removeLogicalById(${pkType} id);
+    int removeLogicalById(List<${pkType}> ids);
+    int removePhysicalById(${pkType} id);
+    int removePhysicalById(List<${pkType}> ids);
+    int removeAll();
+
+    int update(${className}Entity ${objName});
+
+	${className}Entity getById(${pkType} id);
+	${className}Entity getByObject(${className}Entity ${objName});
+
+    Page<${className}Entity> list(${className}Entity ${objName},Page<${className}Entity> page);
+    List<${className}Entity> list(${className}Entity ${objName});
+    List<${className}Entity> listAll();
+
+    Page<${className}Entity> list${className}(Map<String, Object> params);
+}

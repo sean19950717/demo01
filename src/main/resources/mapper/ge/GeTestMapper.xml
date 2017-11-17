@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.modules.ge.dao.GeTestMapper">
+    <sql id="Base_Column_List">
+    `AA_BB`, `CC_DD`  
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.demo.modules.ge.entity.GeTestEntity">
+       <id column="AA_BB" property="aaBb" />
+       <result column="CC_DD" property="ccDd" />
+
+    </resultMap>
+
+    <insert id="insert" parameterType="com.demo.modules.ge.entity.GeTestEntity">
+        insert into ge_test (
+                                  `AA_BB`,
+			                                            `CC_DD`                  
+        )
+        values (
+                                  #{aaBb},
+			                                            #{ccDd}                  
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.demo.modules.ge.entity.GeTestEntity">
+        insert into ge_test
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                            <if test="aaBb != null">
+                    `AA_BB`,
+                </if>
+                            <if test="ccDd != null">
+                    `CC_DD`,
+                </if>
+            
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                            <if test="aaBb != null">
+                    #{aaBb},
+                </if>
+                            <if test="ccDd != null">
+                    #{ccDd},
+                </if>
+            
+        </trim>
+    </insert>
+
+    <insert id="insertInBatch">
+        insert into ge_test (
+                                    `AA_BB`,
+                                                            `CC_DD`                    
+        )
+        values
+        <foreach close="" collection="list" index="index" item="item" open="" separator=",">
+           (
+                                            #{item.aaBb},
+                                                                        #{item.ccDd}                        
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from ge_test
+        where AA_BB = #{id}
+    </delete>
+
+    <delete id="deleteByObject" parameterType="com.demo.modules.ge.entity.GeTestEntity">
+        delete from ge_test
+        <where>
+                            <if test="aaBb != null">
+                    and `AA_BB` =  #{aaBb}
+                </if>
+                            <if test="ccDd != null">
+                    and `CC_DD` =  #{ccDd}
+                </if>
+            
+        </where>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from ge_test
+        where AA_BB in
+        <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deleteAll">
+        delete from ge_test
+    </delete>
+
+    <update id="updateById" parameterType="com.demo.modules.ge.entity.GeTestEntity">
+        update ge_test
+        <set>
+                            `AA_BB` =  #{aaBb},
+                            `CC_DD` =  #{ccDd},
+            
+        </set>
+        where AA_BB = #{aaBb}
+    </update>
+
+    <update id="updateByIdSelective" parameterType="com.demo.modules.ge.entity.GeTestEntity">
+        update ge_test
+        <set>
+                                                                        <if test="ccDd != null">
+                  `CC_DD` =  #{ccDd},
+                </if>
+                            
+        </set>
+        where AA_BB = #{aaBb}
+    </update>
+
+    <select id="selectOneById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ge_test
+        where AA_BB = #{aaBb}
+    </select>
+
+    <select id="selectOneByObject" parameterType="com.demo.modules.ge.entity.GeTestEntity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ge_test
+        <where>
+                            <if test="aaBb != null">
+                    and `AA_BB` =  #{aaBb}
+                </if>
+                            <if test="ccDd != null">
+                    and `CC_DD` =  #{ccDd}
+                </if>
+            
+        </where>
+    </select>
+
+    <select id="selectByObject" parameterType="com.demo.modules.ge.entity.GeTestEntity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ge_test
+        <where>
+                           <if test="entity.aaBb != null">
+                 and `AA_BB` =  #{entity.aaBb}
+               </if>
+                           <if test="entity.ccDd != null">
+                 and `CC_DD` =  #{entity.ccDd}
+               </if>
+            
+        </where>
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ge_test
+    </select>
+
+    <select id="listForPage" resultType="com.demo.modules.ge.entity.GeTestEntity">
+        SELECT
+                    `AA_BB`,
+                            `CC_DD`        
+        FROM
+        ge_test
+        ORDER BY
+        AA_BB DESC
+    </select>
+
+    <select id="count" parameterType="com.demo.modules.ge.entity.GeTestEntity" resultType="long">
+        select count(1)
+        from ge_test
+        <where>
+                            <if test="aaBb != null">
+                    and `AA_BB` =  #{aaBb}
+                </if>
+                            <if test="ccDd != null">
+                    and `CC_DD` =  #{ccDd}
+                </if>
+            
+        </where>
+    </select>
+
+    <select id="countAll" resultType="long">
+        select count(1)
+        from ge_test
+    </select>
+</mapper>

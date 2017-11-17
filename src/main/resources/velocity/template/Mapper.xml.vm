@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package}.modules.${module}.dao.${className}Mapper">
+    <sql id="Base_Column_List">
+    #foreach($column in $columns)`$column.columnName`#if($velocityCount != $columns.size()),#end #end $!empty
+    </sql>
+
+    <resultMap id="BaseResultMap" type="${package}.modules.${module}.entity.${className}Entity">
+#foreach($column in $columns)
+#if($column.columnName == $pk.columnName)
+       <id column="$column.columnName" property="$column.fieldName" />
+#end
+#if($column.columnName != $pk.columnName)
+       <result column="$column.columnName" property="$column.fieldName" />
+#end
+#end$!empty
+    </resultMap>
+
+    <insert id="insert" parameterType="${package}.modules.${module}.entity.${className}Entity">
+        insert into ${tableName} (
+        #foreach($column in $columns)
+          #if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+                `$column.columnName`#if($velocityCount != $columns.size()),
+			#end
+          #end
+        #end$!empty
+        )
+        values (
+        #foreach($column in $columns)
+          #if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+                #{$column.fieldName}#if($velocityCount != $columns.size()),
+			#end
+          #end
+        #end$!empty
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="${package}.modules.${module}.entity.${className}Entity">
+        insert into ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #foreach($column in $columns)
+                <if test="$column.fieldName != null">
+                    `$column.columnName`,
+                </if>
+            #end$!empty
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #foreach($column in $columns)
+                <if test="$column.fieldName != null">
+                    #{$column.fieldName},
+                </if>
+            #end$!empty
+        </trim>
+    </insert>
+
+    <insert id="insertInBatch">
+        insert into ${tableName} (
+        #foreach($column in $columns)
+            #if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+                `$column.columnName`#if($velocityCount != $columns.size()),
+            #end
+            #end
+        #end$!empty
+        )
+        values
+        <foreach close="" collection="list" index="index" item="item" open="" separator=",">
+           (
+            #foreach($column in $columns)
+                #if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
+                #{item.$column.fieldName}#if($velocityCount != $columns.size()),
+                #end
+            #end
+            #end$!empty
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.$pk.fieldType">
+        delete from ${tableName}
+        where ${pk.columnName} = #{id}
+    </delete>
+
+    <delete id="deleteByObject" parameterType="${package}.modules.${module}.entity.${className}Entity">
+        delete from ${tableName}
+        <where>
+            #foreach($column in $columns)
+                <if test="$column.fieldName != null">
+                    and `$column.columnName` =  #{$column.fieldName}
+                </if>
+            #end$!empty
+        </where>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from ${tableName}
+        where ${pk.columnName} in
+        <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deleteAll">
+        delete from ${tableName}
+    </delete>
+
+    <update id="updateById" parameterType="${package}.modules.${module}.entity.${className}Entity">
+        update ${tableName}
+        <set>
+            #foreach($column in $columns)
+                `$column.columnName` =  #{$column.fieldName},
+            #end$!empty
+        </set>
+        where $pk.columnName = #{$pk.fieldName}
+    </update>
+
+    <update id="updateByIdSelective" parameterType="${package}.modules.${module}.entity.${className}Entity">
+        update ${tableName}
+        <set>
+            #foreach($column in $columns)
+                #if($column.columnName != $pk.columnName)
+                <if test="$column.fieldName != null">
+                  `$column.columnName` =  #{$column.fieldName},
+                </if>
+                #end
+            #end$!empty
+        </set>
+        where $pk.columnName = #{$pk.fieldName}
+    </update>
+
+    <select id="selectOneById" parameterType="java.lang.$pk.fieldType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ${tableName}
+        where $pk.columnName = #{$pk.fieldName}
+    </select>
+
+    <select id="selectOneByObject" parameterType="${package}.modules.${module}.entity.${className}Entity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ${tableName}
+        <where>
+            #foreach($column in $columns)
+                <if test="$column.fieldName != null">
+                    and `$column.columnName` =  #{$column.fieldName}
+                </if>
+            #end$!empty
+        </where>
+    </select>
+
+    <select id="selectByObject" parameterType="${package}.modules.${module}.entity.${className}Entity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ${tableName}
+        <where>
+            #foreach($column in $columns)
+               <if test="entity.$column.fieldName != null">
+                 and `$column.columnName` =  #{entity.$column.fieldName}
+               </if>
+            #end$!empty
+        </where>
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ${tableName}
+    </select>
+
+    <select id="listForPage" resultType="${package}.modules.${module}.entity.${className}Entity">
+        SELECT
+        #foreach($column in $columns)
+            `$column.columnName`#if($velocityCount != $columns.size()),
+        #end
+        #end$!empty
+        FROM
+        ${tableName}
+        ORDER BY
+        ${pk.columnName} DESC
+    </select>
+
+    <select id="count" parameterType="${package}.modules.${module}.entity.${className}Entity" resultType="long">
+        select count(1)
+        from ${tableName}
+        <where>
+            #foreach($column in $columns)
+                <if test="$column.fieldName != null">
+                    and `$column.columnName` =  #{$column.fieldName}
+                </if>
+            #end$!empty
+        </where>
+    </select>
+
+    <select id="countAll" resultType="long">
+        select count(1)
+        from ${tableName}
+    </select>
+</mapper>

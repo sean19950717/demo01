@@ -1,0 +1,36 @@
+package ${package}.modules.${module}.manager;
+
+import java.util.List;
+import com.demo.common.entity.Page;
+import com.demo.common.entity.Query;
+import ${package}.modules.${module}.entity.${className}Entity;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @url ${url}
+ * @date ${datetime}
+ */
+public interface ${className}Manager {
+
+    int add(${className}Entity ${objName});
+
+    int removeLogicalById(${pkType} id);
+    int removeLogicalById(List<${pkType}> ids);
+    int removePhysicalById(${pkType} id);
+    int removePhysicalById(List<${pkType}> ids);
+    int removeAll();
+
+    int update(${className}Entity ${objName});
+
+	${className}Entity getById(${pkType} id);
+	${className}Entity getByObject(${className}Entity ${objName});
+
+    List<${className}Entity> list(${className}Entity ${objName},Page<${className}Entity> page);
+    List<${className}Entity> list(${className}Entity ${objName});
+    List<${className}Entity> listAll();
+
+    List<${className}Entity> list${className}(Page<${className}Entity> page, Query search);
+}

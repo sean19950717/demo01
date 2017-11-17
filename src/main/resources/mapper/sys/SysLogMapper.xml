@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.modules.sys.dao.SysLogMapper">
+	
+	<select id="listForPage" resultType="com.demo.modules.sys.entity.SysLogEntity">
+		SELECT
+			id,
+			user_id,
+			username,
+			module,
+			operation,
+			execute_time,
+			method,
+			params,
+			ip,
+			create_time
+		FROM
+			sys_log
+		<where>
+			<if test="username != null and username.trim() != ''">
+				AND username LIKE concat('%',#{username},'%')
+				OR operation LIKE concat('%',#{username},'%')
+			</if>
+		</where>
+		ORDER BY
+			create_time DESC
+	</select>
+	
+	<insert id="save" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sys_log (
+			user_id,
+			username,
+			module,
+			operation,
+			execute_time,
+			method,
+			params,
+			ip,
+			create_time
+		)
+		VALUES (
+			#{userId},
+			#{username}, 
+			#{module},
+			#{operation},
+			#{executeTime},
+			#{method}, 
+			#{params}, 
+			#{ip}, 
+			NOW()
+		)
+	</insert>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sys_log
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="batchRemoveAll">
+		DELETE
+		FROM
+			sys_log
+	</delete>
+
+</mapper>

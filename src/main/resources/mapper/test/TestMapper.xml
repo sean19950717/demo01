@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.modules.test.dao.TestMapper">
+    <sql id="Base_Column_List">
+    `id`, `aaa`, `bbb`  
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.demo.modules.test.entity.TestEntity">
+       <id column="id" property="id" />
+       <result column="aaa" property="aaa" />
+       <result column="bbb" property="bbb" />
+
+    </resultMap>
+
+    <insert id="insert" parameterType="com.demo.modules.test.entity.TestEntity">
+        insert into test (
+                                                    `aaa`,
+			                                            `bbb`                  
+        )
+        values (
+                                                    #{aaa},
+			                                            #{bbb}                  
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.demo.modules.test.entity.TestEntity">
+        insert into test
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                            <if test="id != null">
+                    `id`,
+                </if>
+                            <if test="aaa != null">
+                    `aaa`,
+                </if>
+                            <if test="bbb != null">
+                    `bbb`,
+                </if>
+            
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                            <if test="id != null">
+                    #{id},
+                </if>
+                            <if test="aaa != null">
+                    #{aaa},
+                </if>
+                            <if test="bbb != null">
+                    #{bbb},
+                </if>
+            
+        </trim>
+    </insert>
+
+    <insert id="insertInBatch">
+        insert into test (
+                                                        `aaa`,
+                                                            `bbb`                    
+        )
+        values
+        <foreach close="" collection="list" index="index" item="item" open="" separator=",">
+           (
+                                                                        #{item.aaa},
+                                                                        #{item.bbb}                        
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from test
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByObject" parameterType="com.demo.modules.test.entity.TestEntity">
+        delete from test
+        <where>
+                            <if test="id != null">
+                    and `id` =  #{id}
+                </if>
+                            <if test="aaa != null">
+                    and `aaa` =  #{aaa}
+                </if>
+                            <if test="bbb != null">
+                    and `bbb` =  #{bbb}
+                </if>
+            
+        </where>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from test
+        where id in
+        <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deleteAll">
+        delete from test
+    </delete>
+
+    <update id="updateById" parameterType="com.demo.modules.test.entity.TestEntity">
+        update test
+        <set>
+                            `id` =  #{id},
+                            `aaa` =  #{aaa},
+                            `bbb` =  #{bbb},
+            
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByIdSelective" parameterType="com.demo.modules.test.entity.TestEntity">
+        update test
+        <set>
+                                                                        <if test="aaa != null">
+                  `aaa` =  #{aaa},
+                </if>
+                                                            <if test="bbb != null">
+                  `bbb` =  #{bbb},
+                </if>
+                            
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectOneById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from test
+        where id = #{id}
+    </select>
+
+    <select id="selectOneByObject" parameterType="com.demo.modules.test.entity.TestEntity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from test
+        <where>
+                            <if test="id != null">
+                    and `id` =  #{id}
+                </if>
+                            <if test="aaa != null">
+                    and `aaa` =  #{aaa}
+                </if>
+                            <if test="bbb != null">
+                    and `bbb` =  #{bbb}
+                </if>
+            
+        </where>
+    </select>
+
+    <select id="selectByObject" parameterType="com.demo.modules.test.entity.TestEntity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from test
+        <where>
+                           <if test="entity.id != null">
+                 and `id` =  #{entity.id}
+               </if>
+                           <if test="entity.aaa != null">
+                 and `aaa` =  #{entity.aaa}
+               </if>
+                           <if test="entity.bbb != null">
+                 and `bbb` =  #{entity.bbb}
+               </if>
+            
+        </where>
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from test
+    </select>
+
+    <select id="count" parameterType="com.demo.modules.test.entity.TestEntity" resultType="long">
+        select count(1)
+        from test
+        <where>
+                            <if test="id != null">
+                    and `id` =  #{id}
+                </if>
+                            <if test="aaa != null">
+                    and `aaa` =  #{aaa}
+                </if>
+                            <if test="bbb != null">
+                    and `bbb` =  #{bbb}
+                </if>
+            
+        </where>
+    </select>
+
+    <select id="countAll" resultType="long">
+        select count(1)
+        from test
+    </select>
+</mapper>
