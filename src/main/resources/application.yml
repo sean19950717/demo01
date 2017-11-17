@@ -60,7 +60,7 @@ mybatis:
 #代码生成器配置:
 generator:
     project:
-        basePath: E:\开源程序\nescafe
+        basePath: E:\开源程序\demo01
     basePackage:  com.demoules
     mapper:
         path: mapper
