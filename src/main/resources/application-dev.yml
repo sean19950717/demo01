@@ -4,7 +4,7 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         druid:
             default:  #默认数据源
-              url: jdbc:mysql://localhost:3306/dp-lte-boot?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+              url: jdbc:mysql://localhost:3306/haier_blue?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
               username: root
               password: root
             initial-size: 10
@@ -44,3 +44,11 @@ Login:
     retryLimitCounts: 5
     #是否单点登录
     singleLogin: true
+aliyun:
+    mns:
+      YourAccessId: LTAIKMB0KuMDS5Rr
+      YourAccessKey: EMXko0S1IhnFfLS5G1jTBbNayg5Z9x
+      YourSignName: 蓝本子
+      YourSMSTemplateCode: SMS_112475224
+      YourProduct: Dysmsapi
+      YourDoMain: dysmsapi.aliyuncs.com

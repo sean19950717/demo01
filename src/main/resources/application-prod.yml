@@ -4,7 +4,7 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         druid:
             first:
-                url: jdbc:mysql://localhost:3306/dp-lte-boot?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+                url: jdbc:mysql://localhost:3306/haier_blue?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
                 username: root
                 password: root
             initial-size: 10

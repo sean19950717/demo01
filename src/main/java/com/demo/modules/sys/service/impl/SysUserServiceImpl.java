@@ -11,6 +11,7 @@ import com.demo.modules.sys.manager.SysUserManager;
 import com.demo.modules.sys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Map;
 import java.util.Set;
@@ -100,8 +101,9 @@ public class SysUserServiceImpl implements SysUserService {
 
 	@Override
 	public R updatePswd(SysUserEntity user) {
-		SysUserEntity currUser = sysUserManager.getUserById(user.getUserId());
-		user.setPassword(MD5Utils.encrypt(currUser.getUsername(), user.getPassword()));
+		//SysUserEntity currUser = sysUserManager.getUserById(user.getUserId());
+		//SysUserEntity currUser=sysUserManager.getObjectByTelephone(user.getMobile());
+		// user.setPassword(MD5Utils.encrypt(currUser.getUsername(), user.getPassword()));
 		int count = sysUserManager.updatePswd(user);
 		return CommonUtils.msg(count);
 	}
@@ -129,6 +131,12 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	public SysUserEntity getByUserName(String username) {
 		return sysUserManager.getByUserName(username);
+	}
+
+	@Override
+	public int getObjectByTelephone(String telephone) {
+
+		return sysUserManager.getObjectByTelephone(telephone);
 	}
 
 }

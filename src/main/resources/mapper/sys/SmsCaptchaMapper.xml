@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.modules.sys.dao.SmsCaptchaMapper">
+  <resultMap id="BaseResultMap" type="com.demo.modules.sys.entity.SmsCaptcha">
+    <id column="sms_capacha_id" jdbcType="INTEGER" property="smsCapachaId" />
+    <result column="sms_telephone" jdbcType="VARCHAR" property="smsTelephone" />
+    <result column="sms_capacha_info" jdbcType="VARCHAR" property="smsCapachaInfo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sms_capacha_id, sms_telephone, sms_capacha_info, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bd_sms_captcha
+    where sms_capacha_id = #{smsCapachaId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bd_sms_captcha
+    where sms_capacha_id = #{smsCapachaId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.modules.sys.entity.SmsCaptcha">
+    insert into bd_sms_captcha (sms_capacha_id, sms_telephone, sms_capacha_info, 
+      create_time, modify_time)
+    values (#{smsCapachaId,jdbcType=INTEGER}, #{smsTelephone,jdbcType=VARCHAR}, #{smsCapachaInfo,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.modules.sys.entity.SmsCaptcha">
+    insert into bd_sms_captcha
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="smsCapachaId != null">
+        sms_capacha_id,
+      </if>
+      <if test="smsTelephone != null">
+        sms_telephone,
+      </if>
+      <if test="smsCapachaInfo != null">
+        sms_capacha_info,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="smsCapachaId != null">
+        #{smsCapachaId,jdbcType=INTEGER},
+      </if>
+      <if test="smsTelephone != null">
+        #{smsTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCapachaInfo != null">
+        #{smsCapachaInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.modules.sys.entity.SmsCaptcha">
+    update bd_sms_captcha
+    <set>
+      <if test="smsTelephone != null">
+        sms_telephone = #{smsTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCapachaInfo != null">
+        sms_capacha_info = #{smsCapachaInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sms_capacha_id = #{smsCapachaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.modules.sys.entity.SmsCaptcha">
+    update bd_sms_captcha
+    set sms_telephone = #{smsTelephone,jdbcType=VARCHAR},
+      sms_capacha_info = #{smsCapachaInfo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where sms_capacha_id = #{smsCapachaId,jdbcType=INTEGER}
+  </update>
+</mapper>

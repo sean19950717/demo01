@@ -145,7 +145,8 @@
 	<update id="updatePswdByUser">
 		UPDATE sys_user
 		SET
-			password = #{newPswd}
+			password = #{newPswd},
+			gmt_create=now()
 		WHERE
 			user_id = #{userId} AND password = #{pswd}
 	</update>
@@ -168,5 +169,7 @@
 		WHERE
 			user_id = #{userId}
 	</update>
-
+	<select id="getObjectByTelephone" resultType="com.demo.modules.sys.entity.SysUserEntity">
+		SELECT count(mobile) FROM  sys_user WHERE mobile=#{telephone}
+	</select>
 </mapper>

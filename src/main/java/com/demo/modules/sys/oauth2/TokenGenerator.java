@@ -44,4 +44,7 @@ public class TokenGenerator {
             throw new RRException("生成Token失败", e);
         }
     }
+    public static  void  main(String[] args){
+        System.out.print(generateValue());
+    }
 }

@@ -51,5 +51,7 @@ public interface SysUserManager {
 	SysUserTokenEntity saveUserToken(SysUserEntity sysUserEntity);
 	
 	int updateUserToken(Long userId);
+
+	int getObjectByTelephone(String telephone);
 	
 }

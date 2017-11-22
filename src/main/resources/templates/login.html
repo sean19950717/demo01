@@ -23,9 +23,20 @@
 			<hr class="hr15">
 			<input placeholder="密码" v-model="password" type="password">
 			<hr class="hr15">
+			<div>
+            <input type="text" class="form-control" v-model="captcha" @keyup.enter="login" placeholder="验证码">
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            <hr class="hr15">
+            <img alt="如果看不清楚，请单击图片刷新！" id="captchaId" class="pointer" :src="src" @click="refreshCode()">
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" @click="refreshCode">点击刷新</a>
+			</div>
+			<hr class="hr15">
 			<input value="登录" style="width: 100%;" type="button" @click="login">
 			<hr class="hr20">
-			<!-- 帮助 <a onClick="alert('请联系管理员')">忘记密码</a> -->
+			<div>
+				<a href="register.html">注册用户</a>
+				<a onClick="alert('请联系管理员')">忘记密码123</a>
+			</div>
 		</form>
 	</div>
 	<!--<div class="copyright">
@@ -40,14 +51,38 @@
 				username : 'admin',
 				password : '1',
 				error : false,
-				errorMsg : ''
+				errorMsg : '',
+                captcha:'',
+                src: 'sys/captcha?captcha=',
+                captchaInfo:"",
 			},
 			beforeCreate : function() {
 				if (self != top) {
 					top.location.href = self.location.href;
+                    /*$.ajax({
+                        type : "POST",
+                        url : "sys/CaptchaCode",
+                        dataType : "json",
+                        success : function(result) {
+                            alert(result.msg);
+                            vm.captchaInfo=result.msg;
+                        }
+                    });*/
 				}
 			},
 			methods : {
+                refreshCode: function(){
+                    	this.src = "sys/captcha?t=" + $.now();
+                    $.ajax({
+                        type : "POST",
+                        url : "sys/CaptchaCode",
+                        dataType : "json",
+						data:{"captchaText":vm.captchaInfo},
+                        success : function(result) {
+                        }
+                    });
+
+                },
 				login : function(event) {
 					if (vm.username == '') {
 						vm.error = true;
@@ -59,8 +94,13 @@
 						vm.errorMsg = '密码为空';
 						return false;
 					}
+					if(vm.captcha==''){
+					    vm.error=true;
+					    vm.errorMsg="输入的验证码为空";
+					    return false;
+					}
 					var data = "username=" + vm.username + "&password="
-							+ vm.password;
+						+ vm.password+"&captcha="+vm.captcha;
 					$.ajax({
 						type : "POST",
 						url : "sys/login",
@@ -73,6 +113,7 @@
 							} else {
 								vm.error = true;
 								vm.errorMsg = result.msg;
+                                vm.refreshCode();
 							}
 						}
 					});

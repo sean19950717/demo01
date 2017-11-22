@@ -3,6 +3,8 @@ package com.demo.common.utils;
 import com.demo.common.constant.MsgConstant;
 import com.demo.common.constant.SystemConstant;
 import com.demo.common.entity.R;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 /**
  * 通用工具类
@@ -14,6 +16,8 @@ import com.demo.common.entity.R;
  */
 public class CommonUtils {
 
+	@Autowired
+	private static Environment environment;
 	/**
 	 * 对象是否为空
 	 * 
@@ -26,7 +30,6 @@ public class CommonUtils {
 		}
 		return false;
 	}
-
 	/**
 	 * 判断整数是否大于零
 	 * 

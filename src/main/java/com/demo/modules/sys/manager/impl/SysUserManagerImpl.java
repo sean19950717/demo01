@@ -73,10 +73,11 @@ public class SysUserManagerImpl implements SysUserManager {
 	@Override
 	public int saveUser(SysUserEntity user) {
 		int count = sysUserMapper.save(user);
-		Query query = new Query();
+		/*Query query = new Query();
 		query.put("userId", user.getUserId());
 		query.put("roleIdList", user.getRoleIdList());
-		sysUserRoleMapper.save(query);
+		sysUserRoleMapper.save(query);*/
+		sysUserRoleMapper.saveUserRole(user.getUserId());
 		return count;
 	}
 
@@ -242,6 +243,11 @@ public class SysUserManagerImpl implements SysUserManager {
 		userToken.setUserId(userId);
 		userToken.setToken(token);
 		return sysUserTokenMapper.update(userToken);
+	}
+
+	@Override
+	public int getObjectByTelephone(String telephone) {
+		return sysUserMapper.getObjectByTelephone(telephone);
 	}
 
 }

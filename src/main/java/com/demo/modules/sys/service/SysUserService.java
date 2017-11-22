@@ -43,5 +43,7 @@ public interface SysUserService {
 	R updateUserToken(Long userId);
 	
 	SysUserEntity getByUserName(String username);
+
+	int getObjectByTelephone(String telephone);
 	
 }

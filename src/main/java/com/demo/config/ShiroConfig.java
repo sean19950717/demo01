@@ -61,18 +61,23 @@ public class ShiroConfig {
         filterMap.put("/druid/**", "anon");
         filterMap.put("/api/**", "anon");
         filterMap.put("/sys/login", "anon");
-        filterMap.put("/sys/captcha.jpg", "anon");
+        filterMap.put("/sys/captcha", "anon");
+        filterMap.put("/sys/CaptchaCode", "anon");
         filterMap.put("/**/*.css", "anon");
         filterMap.put("/**/*.js", "anon");
         filterMap.put("/**/*.html", "anon");
+        filterMap.put("/sys/register","anon");
+        filterMap.put("/sys/modifyPassWord","anon");
         //filterMap.put("/sys/oss/list", "anon");
         filterMap.put("/images/**", "anon");
         filterMap.put("/fonts/**", "anon");
+        filterMap.put("/sys/smsInfo", "anon");
         filterMap.put("/plugins/**", "anon");
         filterMap.put("/swagger/**", "anon");
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/", "anon");
         filterMap.put("/**", "oauth2");
+        filterMap.put("/sys/logout", "anon");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilter;

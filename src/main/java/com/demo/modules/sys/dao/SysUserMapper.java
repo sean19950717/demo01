@@ -28,5 +28,8 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
 	int updateUserStatus(Query query);
 	
 	int updatePswd(SysUserEntity user);
-	
+
+	int getObjectByTelephone(String telephone);
+
+
 }

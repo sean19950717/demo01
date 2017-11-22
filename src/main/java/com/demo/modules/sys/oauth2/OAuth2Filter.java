@@ -31,7 +31,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
         if(StringUtils.isBlank(token)){
             return null;
         }
-
+        //token放在AuthenticationToken中
         return new OAuth2Token(token);
     }
 

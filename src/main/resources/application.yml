@@ -68,3 +68,11 @@ generator:
         path: templates
     js:
         path: static
+aliyun:
+    mns:
+      YourAccessId: LTAIKMB0KuMDS5Rr
+      YourAccessKey: EMXko0S1IhnFfLS5G1jTBbNayg5Z9x
+      YourSignName: 蓝本子
+      YourSMSTemplateCode: SMS_112475224
+      YourProduct: Dysmsapi
+      YourDoMain: dysmsapi.aliyuncs.com

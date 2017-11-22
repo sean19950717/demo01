@@ -31,5 +31,6 @@ public interface SysRoleManager {
 	int updateRoleOptAuthorization(SysRoleEntity role);
 
 	int updateRoleDataAuthorization(SysRoleEntity role);
-	
+
+	int saveUserRole(Long userId);
 }

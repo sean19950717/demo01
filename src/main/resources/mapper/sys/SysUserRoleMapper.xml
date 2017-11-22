@@ -52,5 +52,11 @@
 		WHERE
 			user_id = #{value}
 	</select>
-
+	<insert id="saveUserRole">
+		INSERT INTO sys_user_role (`user_id`, `role_id`)
+		VALUES
+			(
+			#{userId},
+			1)
+	</insert>
 </mapper>

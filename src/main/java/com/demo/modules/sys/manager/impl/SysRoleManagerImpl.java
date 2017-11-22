@@ -102,5 +102,10 @@ public class SysRoleManagerImpl implements SysRoleManager {
 		}
 		return count;
 	}
-	
+
+	@Override
+	public int saveUserRole(Long userId) {
+		return sysUserRoleMapper.saveUserRole(userId);
+	}
+
 }
